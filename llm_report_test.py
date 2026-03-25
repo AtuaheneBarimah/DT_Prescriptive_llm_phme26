@@ -8,120 +8,135 @@ from pathlib import Path
 from litgpt import LLM
 
 try:
-    from report_engine import build_asset_matrix, detect_faults, build_maintenance_plan, calculate_repair_metrics
+    from report_engine import (
+        build_asset_matrix, 
+        detect_faults, 
+        build_maintenance_plan, 
+        calculate_repair_metrics,
+        convert_format_a_to_b 
+    )
 except ImportError:
-    print("✘ ERROR: report_engine.py missing.")
+    print("✘ ERROR: all required functions imported.")
     sys.exit()
 
 from llm_report import checkpoint_model, checkpoint_model_checker
-
 
 data_root = Path(r"C:\XXX\data")
 weights_path = Path(r"C:\XXX\llm_model_weights.pth")
 
 main_report_file = Path("gcu_asset_report_FINAL.txt")
-log_file = Path("gcu_asset_report_log.txt")
+history_log_file = data_root / "gcu_historical_log.txt"
 
-# Load Data
-hr_data = json.load(open(data_root / "human_res.json", 'r', encoding='utf-8'))
-dt_analytics = json.load(open(data_root / "dt_analytics.json", 'r', encoding='utf-8'))
-report_fmt = json.load(open(data_root / "report_format.json", 'r', encoding='utf-8'))
+raw_data_path = data_root / "dt_analytics_RAW.txt"
+if raw_data_path.exists():
+    print("✔ Txt format Found. Converting Format A to B...")
+    with open(raw_data_path, 'r', encoding='utf-8') as f:
+        dt_analytics = convert_format_a_to_b(f.read())
+else:
+    print("Using existing dt_analytics.json...")
+    dt_analytics = json.load(open(data_root / "dt_analytics.json", 'r', encoding='utf-8'))
 
 latest_dt = dt_analytics['dt_analytics'][-1]
+report_fmt = json.load(open(data_root / "report_format.json", 'r', encoding='utf-8'))
 asset_matrix = build_asset_matrix(latest_dt, report_fmt)
 faulty_list = detect_faults(asset_matrix)
 
-enriched_plan = []
-for task in build_maintenance_plan(latest_dt, faulty_list, hr_data):
-    task.update(calculate_repair_metrics(task['asset']))
-    enriched_plan.append(task)
+is_faulty = len(faulty_list) > 0
+report_payload = []
 
+if is_faulty:
+    hr_data = json.load(open(data_root / "human_res.json", 'r', encoding='utf-8'))
+    for task in build_maintenance_plan(latest_dt, faulty_list, hr_data):
+        task.update(calculate_repair_metrics(task['asset']))
+        report_payload.append(task)
+    mode_title = "CRITICAL MAINTENANCE REQUIRED"
+else:
+    report_payload = asset_matrix 
+    mode_title = "SYSTEM HEALTH & PERFORMANCE REPORT"
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 def load_safe_model(checkpoint):
-    """Loads model with memory precautions to avoid Segmentation Faults."""
     model = LLM.load(checkpoint)
-
     model.model.load_state_dict(torch.load(weights_path, map_location='cpu', weights_only=True))
     model.model.to(device)
     return model
 
-print("Loading Generator...")
+print(f"Initializing Models for {mode_title} Mode...")
 generator = load_safe_model(checkpoint_model)
-print("Loading Discriminator...")
 discriminator = load_safe_model(checkpoint_model_checker)
-
-
-
-def clean_json_response(raw_text):
-    """Extracts JSON and stops the 'gibberish' loops."""
-
-    match = re.search(r"\{.*\}", raw_text, re.DOTALL)
-    if match:
-        clean_text = match.group(0)
-
-        clean_text = re.sub(r",\s*([\]}])", r"\1", clean_text)
-        try:
-            return json.loads(clean_text)
-        except:
-            return None
-    return None
 
 MAX_RETRIES = 3
 
 for attempt in range(1, MAX_RETRIES + 1):
-    print(f"\n[Attempt {attempt}] Generating...")
+    print(f"\n[Attempt {attempt}] Generating Report...")
 
+    instruction = (
+        "You are a maintenance engineer identifying faults." if is_faulty 
+        else "You are a reliability engineer. Systems are healthy. Summarize performance."
+    )
 
     gen_prompt = f"""<|system|>
-You are a technical report writer. Use the DATA provided. 
-DO NOT REPEAT WORDS. DO NOT RAMBLE. 
-PROVIDE ONLY A JSON OBJECT.
+{instruction}
+STRICT RULE: Do not repeat sentences. Return ONLY a valid JSON object.
 <|user|>
-DATA: {json.dumps(enriched_plan)}
+DATA: {json.dumps(report_payload)}
 
-Format:
+Required JSON Format:
 {{
-  "identification": "Short paragraph on faults",
-  "actions_and_personnel": "Short paragraph on technicians",
-  "timeline_and_budget": "Short paragraph on costs"
+  "identification": "Status overview",
+  "analysis": "Asset performance metrics",
+  "conclusion": "Final recommendation"
 }}
 <|assistant|>
-"""
+{{"""
+
     response = generator.generate(
-        gen_prompt, 
-        max_new_tokens=400, 
-        temperature=0.1,
+        "{" + gen_prompt, 
+        max_new_tokens=450, 
+        temperature=0.05, 
         top_p=0.9
     )
 
-    report_data = clean_json_response(response)
+    match = re.search(r"\{.*\}", response, re.DOTALL)
+    if match:
+        try:
+            report_data = json.loads(match.group(0))
+            
+            full_report_text = (
+                f"OFFICIAL GCU ASSET REPORT: {mode_title}\n"
+                f"{'='*60}\n"
+                f"GENERATED: {time.ctime()}\n\n"
+                f"SECTION 1: STATUS OVERVIEW\n{report_data.get('identification')}\n\n"
+                f"SECTION 2: PERFORMANCE ANALYSIS\n{report_data.get('analysis')}\n\n"
+                f"SECTION 3: RECOMMENDATION\n{report_data.get('conclusion')}\n"
+                f"{'-'*60}\n\n"
+            )
 
-    with open(main_report_file, "w", encoding="utf-8") as f:
-        f.write(f"GCU MAINTENANCE REPORT - ATTEMPT {attempt}\n" + "="*40 + "\n")
-        if report_data:
-            f.write(f"1. FAULTS: {report_data.get('identification', 'Error parsing section')}\n\n")
-            f.write(f"2. STAFF: {report_data.get('actions_and_personnel', 'Error parsing section')}\n\n")
-            f.write(f"3. COSTS: {report_data.get('timeline_and_budget', 'Error parsing section')}\n")
-        else:
+            with open(main_report_file, "w", encoding="utf-8") as f_live:
+                f_live.write(full_report_text)
+                f_live.flush()
 
-            f.write("ERROR: System generated invalid format. Retrying...")
-        f.flush()
+            
+            with open(history_log_file, "a", encoding="utf-8") as f_hist:
+                f_hist.write(full_report_text)
+                f_hist.flush()
+            
+            
+            audit_prompt = f"Does the text reflect a {mode_title}? Reply PASSED or NO."
+            audit_res = discriminator.generate(audit_prompt, max_new_tokens=50)
+            
+            if "PASSED" in audit_res.upper():
+                print(f"✔ Audit Passed. Files updated successfully.")
+                break
+            else:
+                print(f"✘ Audit Failed (Attempt {attempt}). Content: {audit_res}")
 
-    with open(log_file, "a", encoding="utf-8") as f_log:
-        f_log.write(f"\n--- ATTEMPT {attempt} LOG ---\n{response}\n")
-        f_log.flush()
+        except Exception as e:
+            print(f"✘ Extraction error: {e}. Retrying...")
 
-
-    if report_data:
-        audit_prompt = f"Does this report mention {enriched_plan[0]['asset']} and its cost? Reply PASSED or NO."
-        audit_res = discriminator.generate(audit_prompt, max_new_tokens=50)
-        if "PASSED" in audit_res.upper():
-            print("✔ Threshold met.")
-            break
 
 del generator, discriminator
 gc.collect()
 if torch.cuda.is_available(): torch.cuda.empty_cache()
-print("Process finished.")
+print(f"Process Finalized. View history in {history_log_file.name}")
