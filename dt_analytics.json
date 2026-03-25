@@ -1,0 +1,119 @@
+{
+  "dt_analytics": [
+    {
+      "request_id": 1,
+      "_id": "69c3c025154a4de41d6b968b",
+      "status": "ok",
+      "SPC_pred_C103A": 1,
+      "components_prediction": {
+        "Time": 3.84,
+        "Theta": 89.0,
+        "Pump_Operating_Point": 1.2466541528701782,
+        "Filter_Health": 0,
+        "Filter_Performance": 0.91,
+        "Pump_Health": 0,
+        "Pump_Performance": 0.73,
+        "Pump Volumetric Efficiency (%)": 77.96,
+        "Valve_Health": 0,
+        "Valve_Performance": 0.81,
+        "Nozzle_Health": 0,
+        "Nozzle_Performance": 0.87,
+        "Pipe_Health": 0,
+        "Pipe_Performance": 0.73
+      },
+      "execution_time_minutes": 0.12
+    },
+    {
+      "request_id": 2,
+      "_id": "69c3c02e154a4de41d6b968c",
+      "status": "ok",
+      "SPC_pred_C103A": 1,
+      "components_prediction": {
+        "Time": 11.54,
+        "Theta": 90.0,
+        "Pump_Operating_Point": 1.2466541528701782,
+        "Filter_Health": 0,
+        "Filter_Performance": 0.9,
+        "Pump_Health": 0,
+        "Pump_Performance": 0.73,
+        "Pump Volumetric Efficiency (%)": 78.83,
+        "Valve_Health": 0,
+        "Valve_Performance": 0.81,
+        "Nozzle_Health": 0,
+        "Nozzle_Performance": 0.87,
+        "Pipe_Health": 0,
+        "Pipe_Performance": 0.73
+      },
+      "execution_time_minutes": 0.11
+    },
+    {
+      "request_id": 3,
+      "_id": "69c3c037154a4de41d6b968d",
+      "status": "ok",
+      "SPC_pred_C103A": 1,
+      "components_prediction": {
+        "Time": 19.24,
+        "Theta": 101.0,
+        "Pump_Operating_Point": 1.3219553232192993,
+        "Filter_Health": 0,
+        "Filter_Performance": 0.83,
+        "Pump_Health": 0,
+        "Pump_Performance": 0.75,
+        "Pump Volumetric Efficiency (%)": 74.89,
+        "Valve_Health": 0,
+        "Valve_Performance": 0.8,
+        "Nozzle_Health": 0,
+        "Nozzle_Performance": 0.73,
+        "Pipe_Health": 0,
+        "Pipe_Performance": 1.05
+      },
+      "execution_time_minutes": 0.12
+    },
+    {
+      "request_id": 4,
+      "_id": "69c3c041154a4de41d6b968e",
+      "status": "ok",
+      "SPC_pred_C103A": 1,
+      "components_prediction": {
+        "Time": 26.94,
+        "Theta": 104.0,
+        "Pump_Operating_Point": 1.4808870553970337,
+        "Filter_Health": 0,
+        "Filter_Performance": 0.78,
+        "Pump_Health": 0,
+        "Pump_Performance": 0.75,
+        "Pump Volumetric Efficiency (%)": 75.47,
+        "Valve_Health": 0,
+        "Valve_Performance": 0.76,
+        "Nozzle_Health": 0,
+        "Nozzle_Performance": 0.66,
+        "Pipe_Health": 0,
+        "Pipe_Performance": 1.08
+      },
+      "execution_time_minutes": 0.12
+    },
+    {
+      "request_id": 5,
+      "_id": "69c3c04a154a4de41d6b968f",
+      "status": "ok",
+      "SPC_pred_C103A": 1,
+      "components_prediction": {
+        "Time": 34.63,
+        "Theta": 101.0,
+        "Pump_Operating_Point": 1.6343761682510376,
+        "Filter_Health": 0,
+        "Filter_Performance": 0.74,
+        "Pump_Health": 0,
+        "Pump_Performance": 0.72,
+        "Pump Volumetric Efficiency (%)": 73.11,
+        "Valve_Health": 0,
+        "Valve_Performance": 0.72,
+        "Nozzle_Health": 0,
+        "Nozzle_Performance": 0.63,
+        "Pipe_Health": 0,
+        "Pipe_Performance": 1.04
+      },
+      "execution_time_minutes": 0.12
+    }
+  ]
+}

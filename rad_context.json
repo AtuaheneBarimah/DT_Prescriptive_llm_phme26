@@ -1,0 +1,52 @@
+{
+  "RAD_Context": {
+    "Metadata": {
+      "Company": "GCU Group",
+      "Description": "Condensed Resource Availability Data context extracted from company policy, UK regulatory compliance, and personnel requirements documents",
+      "Source_Documents": [
+        "StarLyt_Group_Maintenance_Policy_for_Industrial.pdf",
+        "Regulatory_Compliance_.pdf",
+        "Personal_Requirements_.pdf"
+      ]
+    },
+    "CompanyPolicy": {
+      "emergency_response_time_minutes": 30,
+      "escalation_threshold_minutes": 60,
+      "fleet_availability_target_percent": 85,
+      "maintenance_types": ["routine", "preventive", "predictive", "corrective", "emergency"],
+      "safety_protocols": ["PUWER compliance", "PPE required (gloves, goggles)", "lockout/tagout procedures", "emergency shutdown via shut-off valves"],
+      "documentation_requirements": "Log all activities in CMMS including dates, personnel, and outcomes",
+      "spare_parts_policy": {
+        "minimum_stock_critical_parts": true,
+        "reorder_trigger_percent": 20,
+        "quarterly_inventory_audits": true,
+        "example_stock": ["5 injector nozzles", "10 seals"]
+      },
+      "preventive_schedule": {
+        "fuel_filters": "Replace every 6 months or 250 hours",
+        "injectors": "Clean and calibrate annually",
+        "shut_off_valves": "Service annually per manufacturer recommendations"
+      },
+      "pump_maintenance_tasks": {
+        "daily": ["Visual checks for leaks, damage, abnormal noises", "Verify pressure and temperature via sensors", "Check shut-off valve function"],
+        "weekly": ["Detailed pump and injector performance checks", "Lubricate bearings and valve stems", "Inspect filters for clogs"],
+        "monthly": ["Comprehensive system checks with sensor calibration", "Clean filters and pipes", "Test shut-off valves and inspect for corrosion"]
+      }
+    },
+    "RegulatoryCompliance": {
+      "primary_regulation": "Supply of Machinery (Safety) Regulations 2008",
+      "additional_regulation": "Provision and Use of Work Equipment Regulations 1998 (PUWER)",
+      "marking_required": "UKCA (UK Conformity Assessed) marking as of January 2025",
+      "enforcement_body": "Health and Safety Executive (HSE)",
+      "requirements": ["Risk assessment and risk reduction", "Technical documentation and Declaration of Conformity", "Guards, control systems, stability, noise control"],
+      "penalties": "Fines, imprisonment, or product withdrawal for non-compliance"
+    },
+    "PersonnelRequirements": {
+      "minimum_experience_years": 3,
+      "required_certifications": ["IOSH Managing Safely or equivalent", "City & Guilds Level 3 in Mechanical Maintenance or manufacturer-specific"],
+      "mandatory_training": ["Annual safety protocols training", "Fuel system maintenance training", "Digital Twin technologies training", "Hazardous materials handling"],
+      "competency_assessments": "Biannual assessments to verify technician skills",
+      "soft_skills": ["Communication and teamwork", "Problem-solving and attention to detail"]
+    }
+  }
+}

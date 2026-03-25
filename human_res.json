@@ -1,0 +1,142 @@
+{
+  "HumanResources": {
+    "Metadata": {
+      "Company": "GCU Group",
+      "Description": "Human resource data for technical and non-technical personnel supporting industrial machinery maintenance",
+      "Last_Updated": "2025-07-23T13:37:00+01:00",
+      "Timezone": "BST"
+    },
+    "TechnicalPersonnel": [
+      {
+        "Technician_ID": "T001",
+        "Name": "Benedict Mbagho",
+        "Shift_Start": "08:00",
+        "Shift_End": "16:00",
+        "Skillsets": ["Pump Repair", "Sensor Calibration", "Diagnostics"],
+        "Certifications": ["IOSH Managing Safely", "City & Guilds Level 3 in Mechanical Maintenance"],
+        "Years_Experience": 5,
+        "Expertise": ["Fuel Pumps", "Sensors"],
+        "Availability_Status": "Onsite",
+        "Site": "Site A1",
+        "Last_Updated": "2025-07-23T13:00:00+01:00"
+      },
+      {
+        "Technician_ID": "T002",
+        "Name": "Chimka Owhor",
+        "Shift_Start": "12:00",
+        "Shift_End": "20:00",
+        "Skillsets": ["Electrical Diagnostics", "Valve Inspection", "Injector Calibration"],
+        "Certifications": ["IOSH Managing Safely", "Electrical Safety Certificate"],
+        "Years_Experience": 7,
+        "Expertise": ["Injectors", "Valves", "Electrical Systems"],
+        "Availability_Status": "Occupied",
+        "Site": "Site B2",
+        "Last_Updated": "2025-07-23T13:15:00+01:00"
+      },
+      {
+        "Technician_ID": "T003",
+        "Name": "Micheal Alozie",
+        "Shift_Start": "06:00",
+        "Shift_End": "14:00",
+        "Skillsets": ["Injector Calibration", "Pipe Repair", "Pressure Testing"],
+        "Certifications": ["City & Guilds Level 3 in Mechanical Maintenance"],
+        "Years_Experience": 4,
+        "Expertise": ["Pipes", "Injectors"],
+        "Availability_Status": "On Leave",
+        "Site": null,
+        "Last_Updated": "2025-07-23T13:00:00+01:00"
+      }
+    ],
+    "NonTechnicalPersonnel": [
+      {
+        "Employee_ID": "NT001",
+        "Name": "Rachel Ogunyemi",
+        "Shift_Start": "09:00",
+        "Shift_End": "17:00",
+        "Role": "Logistics Coordinator",
+        "Expertise": ["Logistics Management", "Inventory Tracking", "Supplier Coordination"],
+        "Certifications": ["IOSH Working Safely"],
+        "Years_Experience": 3,
+        "Availability_Status": "Onsite",
+        "Site": "Site A1",
+        "Last_Updated": "2025-07-23T13:00:00+01:00"
+      },
+      {
+        "Employee_ID": "NT002",
+        "Name": "Octavia Nwosu",
+        "Shift_Start": "09:00",
+        "Shift_End": "17:00",
+        "Role": "Administrative Assistant",
+        "Expertise": ["Documentation", "Scheduling", "Data Entry"],
+        "Certifications": [],
+        "Years_Experience": 2,
+        "Availability_Status": "Onsite",
+        "Site": "Site C3",
+        "Last_Updated": "2025-07-23T13:00:00+01:00"
+      },
+      {
+        "Employee_ID": "NT003",
+        "Name": "Edwin Clark",
+        "Shift_Start": "08:00",
+        "Shift_End": "16:00",
+        "Role": "Compliance Officer",
+        "Expertise": ["Regulatory Compliance", "Audit Preparation", "Safety Reporting"],
+        "Certifications": ["NEBOSH National General Certificate"],
+        "Years_Experience": 5,
+        "Availability_Status": "Remote",
+        "Site": null,
+        "Last_Updated": "2025-07-23T13:00:00+01:00"
+      }
+    ],
+    "ResponseTimeWorkload": [
+      {
+        "Employee_ID": "T001",
+        "Name": "Benedict Mbagho",
+        "Avg_Response_Time_mins": 15,
+        "Current_Workload_percent": 40,
+        "Open_Tasks": 2,
+        "Last_Updated": "2025-07-23T13:00:00+01:00"
+      },
+      {
+        "Employee_ID": "T002",
+        "Name": "Chimka Owhor",
+        "Avg_Response_Time_mins": 30,
+        "Current_Workload_percent": 80,
+        "Open_Tasks": 5,
+        "Last_Updated": "2025-07-23T13:15:00+01:00"
+      },
+      {
+        "Employee_ID": "T003",
+        "Name": "Michael Alozie",
+        "Avg_Response_Time_mins": null,
+        "Current_Workload_percent": 0,
+        "Open_Tasks": 0,
+        "Last_Updated": "2025-07-23T13:00:00+01:00"
+      },
+      {
+        "Employee_ID": "NT001",
+        "Name": "Rachel Ogunyemi",
+        "Avg_Response_Time_mins": 20,
+        "Current_Workload_percent": 50,
+        "Open_Tasks": 3,
+        "Last_Updated": "2025-07-23T13:00:00+01:00"
+      },
+      {
+        "Employee_ID": "NT002",
+        "Name": "Octavia Nwosu",
+        "Avg_Response_Time_mins": 25,
+        "Current_Workload_percent": 60,
+        "Open_Tasks": 4,
+        "Last_Updated": "2025-07-23T13:00:00+01:00"
+      },
+      {
+        "Employee_ID": "NT003",
+        "Name": "Edwin Clark",
+        "Avg_Response_Time_mins": 30,
+        "Current_Workload_percent": 30,
+        "Open_Tasks": 1,
+        "Last_Updated": "2025-07-23T13:00:00+01:00"
+      }
+    ]
+  }
+}

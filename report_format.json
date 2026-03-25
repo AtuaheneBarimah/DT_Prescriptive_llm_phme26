@@ -1,0 +1,61 @@
+{
+
+  "report_metadata": {
+
+    "company": "GCU Group",
+
+    "department": "Asset Management & Reliability",
+
+    "report_type": "Prescriptive Maintenance Analysis"
+
+  },
+
+  "structure": {
+
+    "section_1": {
+
+      "title": "Executive Summary",
+
+      "content": "A high-level overview of the system health across the 5 monitored assets."
+
+    },
+
+    "section_2": {
+
+      "title": "Asset Health Matrix",
+
+      "logic": "Identify assets where Health = 1 (Faulty) vs Health = 0 (Healthy). Provide specific metrics from dt_analytics like Performance and Efficiency.",
+
+      "assets": ["Filter", "Pump", "Valve", "Nozzle", "Pipe"]
+
+    },
+
+    "section_3": {
+
+      "title": "Prescriptive Maintenance Actions",
+
+      "content_requirements": {
+
+        "priority": "Rank by criticality (e.g., Pump Efficiency < 20% is Critical)",
+
+        "personnel": "Assign specific roles from human_resource_data",
+
+        "tasks": "Step-by-step technical resolution",
+
+        "tools_required": "Specific hardware or software tools needed for the repair"
+
+      }
+
+    },
+
+    "section_4": {
+
+      "title": "Cost-Benefit & Enterprise Impact",
+
+      "focus": "Compare the cost of the maintenance tasks against the impact on RAD (Risk Assessment) and overall production uptime."
+
+    }
+
+  }
+
+}
